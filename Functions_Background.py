@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[68]:
+# In[21]:
 
 
 import pandas as pd
@@ -46,7 +46,7 @@ def get_info(dataframe):
     
 
 
-# In[69]:
+# In[22]:
 
 
 def data_cleaning(olympics, noc_country,world_gdp , world_population, olympics_host):
@@ -107,7 +107,7 @@ def data_cleaning(olympics, noc_country,world_gdp , world_population, olympics_h
     return Merge_olympics,merge_olympics_countrycode,olympics_merge_gdp,olympics_new,world_gdp,world_population 
 
 
-# In[70]:
+# In[23]:
 
 
 def correlation( Merge_olympics,merge_olympics_countrycode,olympics_merge_gdp,olympics_new ):
@@ -205,7 +205,7 @@ def correlation( Merge_olympics,merge_olympics_countrycode,olympics_merge_gdp,ol
     return mergedframe,medalTotal_gdp
 
 
-# In[71]:
+# In[24]:
 
 
 def team_performance(mergedframe, countries):
@@ -232,7 +232,7 @@ def team_performance(mergedframe, countries):
     
 
 
-# In[76]:
+# In[25]:
 
 
 def home_advantage(medal_tally_agnostic):
@@ -316,7 +316,7 @@ def home_advantage(medal_tally_agnostic):
     return year_host_team_medal
 
 
-# In[79]:
+# In[26]:
 
 
 def top_10_countries_summer(noc_country,olympics):
@@ -326,7 +326,7 @@ def top_10_countries_summer(noc_country,olympics):
     #print(athlete)
     top10_summer = player[(olympics['Season']=='Summer') & (player['Medal']!='No Medal')].groupby('Country').count().reset_index()[['Country','Medal']].sort_values('Medal', ascending=False).head(10)
     f, ax = plt.subplots(figsize=(10, 4))
-    sns.barplot(x="Country", y="Medal", data=top10_summer, label="Country", color="palegreen")
+    sns.barplot(x="Country", y="Medal", data=top10_summer, label="Country", color="red")
 
     for p in ax.patches:
         ax.text(p.get_x() + p.get_width()/2,p.get_height(),
@@ -334,20 +334,20 @@ def top_10_countries_summer(noc_country,olympics):
                 '{:1.0f}'.format(p.get_height()),
                 ha="center")
 
-    ax.set_xlabel('Country', size=14, color="green")
-    ax.set_ylabel('Total Medals Won', size=14, color="green")
-    ax.set_title('Top 10 countries with total medals in Summer Olympic games', size=18, color="green")
+    #ax.set_xlabel('Country', size=14, color="orange")
+    #ax.set_ylabel('Total Medals Won', size=14, color="green")
+    ax.set_title('Top 10 countries with total medals in Summer Olympic games', size=16)
     plt.show()
     return player
 
 
-# In[81]:
+# In[27]:
 
 
 def top_10_countries_winter(player):
     top10_winter = player[(olympics['Season']=='Winter') & (player['Medal']!='No Medal')].groupby('Country').count().reset_index()[['Country','Medal']].sort_values('Medal', ascending=False).head(10)
     f, ax = plt.subplots(figsize=(10, 4))
-    sns.barplot(x="Country", y="Medal", data=top10_winter, label="Country", color="palegreen")
+    sns.barplot(x="Country", y="Medal", data=top10_winter, label="Country", color="purple")
 
     for p in ax.patches:
         ax.text(p.get_x() + p.get_width()/2,p.get_height(),
@@ -355,13 +355,13 @@ def top_10_countries_winter(player):
                 '{:1.0f}'.format(p.get_height()),
                 ha="center")
 
-    ax.set_xlabel('Country', size=14, color="green")
-    ax.set_ylabel('Total Medals Won', size=14, color="green")
-    ax.set_title('Top 10 countries with total medals in Winter Olympic games', size=18, color="green")
+    #ax.set_xlabel('Country', size=14, color="green")
+    #ax.set_ylabel('Total Medals Won', size=14, color="green")
+    ax.set_title('Top 10 countries with total medals in Winter Olympic games', size=16)
     plt.show()
 
 
-# In[82]:
+# In[28]:
 
 
 def athletes_summer(olympics):
@@ -373,15 +373,15 @@ def athletes_summer(olympics):
 
     fig, ax = plt.subplots(3, 1, sharex=True, figsize=(22,18))
 
-    sns.barplot(x='Year', y='ID', data=summerAthletes, ax=ax[0], color="blue")
+    sns.barplot(x='Year', y='ID', data=summerAthletes, ax=ax[0], color="red")
     sns.barplot(x='Year', y='Sport', data=summerSports, ax=ax[1], color="blue")
-    sns.barplot(x='Year', y='Event', data=summerEvents, ax=ax[2], color="blue")
+    sns.barplot(x='Year', y='Event', data=summerEvents, ax=ax[2], color="orange")
 
     j = 0
     for i in ['Athletes', 'Sports', 'Events']:
-        ax[j].set_xlabel('Year', size=14, color="orange")
-        ax[j].set_ylabel(i, size=14, color="orange")
-        ax[j].set_title(i + ' in Summer Olympic ', size=18, color="orange")
+        ax[j].set_xlabel('Year', size=14)
+        ax[j].set_ylabel(i, size=14 )
+        ax[j].set_title(i + ' in Summer Olympic ', size=18)
         j = j + 1
 
     for i in range(3):
@@ -391,7 +391,7 @@ def athletes_summer(olympics):
     plt.show()
 
 
-# In[ ]:
+# In[29]:
 
 
 def athletes_winter(olympics):
@@ -403,15 +403,15 @@ def athletes_winter(olympics):
 
     fig, ax = plt.subplots(3, 1, sharex=True, figsize=(22,18))
 
-    sns.barplot(x='Year', y='ID', data=winterAthletes, ax=ax[0], color="blue")
+    sns.barplot(x='Year', y='ID', data=winterAthletes, ax=ax[0], color="red")
     sns.barplot(x='Year', y='Sport', data=winterSports, ax=ax[1], color="blue")
-    sns.barplot(x='Year', y='Event', data=winterEvents, ax=ax[2], color="blue")
+    sns.barplot(x='Year', y='Event', data=winterEvents, ax=ax[2], color="orange")
 
     j = 0
     for i in ['Athletes', 'Sports', 'Events']:
-        ax[j].set_xlabel('Year', size=14, color="orange")
-        ax[j].set_ylabel(i, size=14, color="orange")
-        ax[j].set_title(i + ' in Winter Olympic ', size=18, color="orange")
+        ax[j].set_xlabel('Year', size=14)
+        ax[j].set_ylabel(i, size=14)
+        ax[j].set_title(i + ' in Winter Olympic ', size=18)
         j = j + 1
 
     for i in range(3):
@@ -421,7 +421,7 @@ def athletes_winter(olympics):
     plt.show()
 
 
-# In[84]:
+# In[30]:
 
 
 def BMI_by_event_participants_male(olympics):
@@ -474,7 +474,7 @@ def BMI_by_event_participants_male(olympics):
     plt.show()
 
 
-# In[85]:
+# In[31]:
 
 
 def BMI_by_event_participants_female(olympics):
@@ -526,7 +526,7 @@ def BMI_by_event_participants_female(olympics):
     plt.show()
 
 
-# In[86]:
+# In[32]:
 
 
 def BMI_by_event_gold_medalists_male(olympics):
@@ -580,7 +580,7 @@ def BMI_by_event_gold_medalists_male(olympics):
 
 
 
-# In[88]:
+# In[33]:
 
 
 def BMI_by_event_gold_medalists_female(olympics):
@@ -632,7 +632,7 @@ def BMI_by_event_gold_medalists_female(olympics):
 
 
 
-# In[ ]:
+# In[34]:
 
 
 # Evolution Based on BMI
@@ -689,7 +689,7 @@ def BMI_by_time_gold_medalists(olympics):
 
 
 
-# In[ ]:
+# In[35]:
 
 
 def participants(olympics):
@@ -698,7 +698,7 @@ def participants(olympics):
     return summer_olympics
 
 
-# In[90]:
+# In[36]:
 
 
 def sprinter_Height(summer_olympics):
@@ -728,7 +728,7 @@ def sprinter_Height(summer_olympics):
 #sprint.style.applymap(lambda x: 'background-color : yellow' if x>sprint.iloc[3,3] else '')
 
 
-# In[ ]:
+# In[37]:
 
 
 def sprinter_weight(summer_olympics):
@@ -756,7 +756,7 @@ def sprinter_weight(summer_olympics):
     return sprint
 
 
-# In[ ]:
+# In[38]:
 
 
 def sprinter_age(summer_olympics):
@@ -784,7 +784,7 @@ def sprinter_age(summer_olympics):
     return sprint
 
 
-# In[ ]:
+# In[39]:
 
 
 def sprinter_bmi(summer_olympics):
@@ -812,7 +812,7 @@ def sprinter_bmi(summer_olympics):
     sprint
 
 
-# In[92]:
+# In[40]:
 
 
 def medal_predictor(olympics,world_gdp,world_population,medalTotal_gdp):
@@ -932,16 +932,43 @@ def medal_predictor(olympics,world_gdp,world_population,medalTotal_gdp):
     return summary,rmse
 
 
-# In[ ]:
+# In[41]:
+
+
+def participants_summer(olympics):
+
+    summer_olympics = olympics[(olympics.Season == 'Summer')]
+    sum = summer_olympics.groupby(['Year'])['ID'].count().reset_index()
 
 
 
 
+    fig = plt.figure(figsize=(13,16))
+    plt.subplot(211)
+    ax = sns.pointplot(x = sum["Year"] , y = sum["ID"],markers="h")
+    plt.xticks(rotation = 60)
 
-# In[ ]:
+    plt.ylabel("Participants Count")
+    plt.title("Summer Olympics")
+
+
+# In[42]:
+
+
+def participants_winter(olympics):
+    winter_olympics = olympics[(olympics.Season == 'Winter')]
+    win = winter_olympics.groupby(['Year'])['ID'].count().reset_index()
 
 
 
+
+    fig = plt.figure(figsize=(13,16))
+    plt.subplot(211)
+    ax = sns.pointplot(x = win["Year"] , y = win["ID"],markers="h")
+    plt.xticks(rotation = 60)
+
+    plt.ylabel("Participants Count")
+    plt.title("Summer Olympics")
 
 
 # In[ ]:
