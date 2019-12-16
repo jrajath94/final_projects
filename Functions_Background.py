@@ -701,6 +701,10 @@ def sprinter_age(summer_olympics):
     #Athletics Men's 100 metres
     return sprint
 
+
+# In[ ]:
+
+
 def sprinter_bmi(summer_olympics):
     sprinters = summer_olympics[summer_olympics['Event']=="Athletics Men's 100 metres"]
     sprinters_BMI  = sprinters.groupby(['Year'])['BMI'].mean()
@@ -724,6 +728,8 @@ def sprinter_bmi(summer_olympics):
     sprint.columns = ['Year', 'Overall Participants AverBMI', 'Gold Medalists', 'All Medalists']
     #Athletics Men's 100 metres
     return sprint
+
+
 # In[ ]:
 
 
