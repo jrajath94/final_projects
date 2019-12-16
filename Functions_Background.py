@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[25]:
+# In[1]:
 
 
 #import pandas as pd
@@ -52,7 +52,7 @@ def get_info(dataframe):
     
 
 
-# In[26]:
+# In[2]:
 
 
 def data_cleaning(olympics, noc_country,world_gdp , world_population, olympics_host):
@@ -110,10 +110,11 @@ def data_cleaning(olympics, noc_country,world_gdp , world_population, olympics_h
 
     olympics_new.drop('Country_y', axis = 1, inplace = True)
     print("Data Cleaning has been Completed")
-    return Merge_olympics,merge_olympics_countrycode,olympics_merge_gdp,olympics_new,world_gdp,world_population 
+    
+    return Merge_olympics,merge_olympics_countrycode,olympics_merge_gdp,olympics_new,world_gdp,world_population,olympics_new 
 
 
-# In[27]:
+# In[3]:
 
 
 from numba import jit
@@ -138,7 +139,7 @@ def whereequal(data,x):
     return numbaeq(data.ravel(),x,*data.shape,data)
 
 
-# In[28]:
+# In[4]:
 
 
 def correlation( Merge_olympics,merge_olympics_countrycode,olympics_merge_gdp,olympics_new):
@@ -214,7 +215,7 @@ def correlation( Merge_olympics,merge_olympics_countrycode,olympics_merge_gdp,ol
     return mergedframe,medalTotal_gdp
 
 
-# In[29]:
+# In[5]:
 
 
 def team_performance(mergedframe, countries):
@@ -241,7 +242,7 @@ def team_performance(mergedframe, countries):
     
 
 
-# In[30]:
+# In[6]:
 
 
 def home_advantage(medal_tally_agnostic):
@@ -325,7 +326,7 @@ def home_advantage(medal_tally_agnostic):
     return year_host_team_medal
 
 
-# In[31]:
+# In[7]:
 
 
 def top_10_countries_summer(noc_country,olympics):
@@ -350,7 +351,7 @@ def top_10_countries_summer(noc_country,olympics):
     return player
 
 
-# In[32]:
+# In[8]:
 
 
 def top_10_countries_winter(player):
@@ -370,7 +371,7 @@ def top_10_countries_winter(player):
     plt.show()
 
 
-# In[33]:
+# In[9]:
 
 
 def athletes_summer(olympics):
@@ -400,7 +401,7 @@ def athletes_summer(olympics):
     plt.show()
 
 
-# In[34]:
+# In[10]:
 
 
 def athletes_winter(olympics):
@@ -430,7 +431,7 @@ def athletes_winter(olympics):
     plt.show()
 
 
-# In[35]:
+# In[11]:
 
 
 def BMI_by_event_participants(olympics ,gender):
@@ -489,7 +490,7 @@ def BMI_by_event_participants(olympics ,gender):
 
 
 
-# In[36]:
+# In[12]:
 
 
 def BMI_by_event_gold_medalists(olympics,gender):
@@ -549,7 +550,7 @@ def BMI_by_event_gold_medalists(olympics,gender):
 
 
 
-# In[37]:
+# In[13]:
 
 
 # Evolution Based on BMI
@@ -606,7 +607,7 @@ def BMI_by_time_gold_medalists(olympics):
 
 
 
-# In[38]:
+# In[14]:
 
 
 def participants(olympics):
@@ -615,7 +616,7 @@ def participants(olympics):
     return summer_olympics
 
 
-# In[46]:
+# In[15]:
 
 
 def sprinter_Height(summer_olympics):
@@ -645,7 +646,7 @@ def sprinter_Height(summer_olympics):
 #sprint.style.applymap(lambda x: 'background-color : yellow' if x>sprint.iloc[3,3] else '')
 
 
-# In[40]:
+# In[16]:
 
 
 def sprinter_weight(summer_olympics):
@@ -673,7 +674,7 @@ def sprinter_weight(summer_olympics):
     return sprint
 
 
-# In[41]:
+# In[17]:
 
 
 def sprinter_age(summer_olympics):
@@ -729,7 +730,7 @@ def sprinter_bmi(summer_olympics):
 
 
 
-# In[43]:
+# In[18]:
 
 
 def medal_predictor(olympics,world_gdp,world_population,medalTotal_gdp):
@@ -849,7 +850,7 @@ def medal_predictor(olympics,world_gdp,world_population,medalTotal_gdp):
     return summary,rmse
 
 
-# In[44]:
+# In[19]:
 
 
 def participants_summer(olympics):
@@ -869,7 +870,7 @@ def participants_summer(olympics):
     plt.title("Summer Olympics")
 
 
-# In[45]:
+# In[20]:
 
 
 def participants_winter(olympics):
