@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[25]:
 
 
 #import pandas as pd
@@ -13,6 +13,8 @@ import statsmodels.api as sm
 from patsy import dmatrices
 from sklearn import metrics
 import pandas as pd
+import dask.dataframe as ddf
+import dask.multiprocessing
 #import modin.pandas as pd
 
 
@@ -25,10 +27,27 @@ import pandas as pd
 #     filename = mpd.read_csv(file, **kwargs)
 #     return filename 
 
+
+
+ 
+
+
+
 def read_data(file, **kwargs):
     
     filename = pd.read_csv(file, **kwargs)
-    return filename 
+#     df = ddf.read_csv(file,**kwargs, blocksize=1000000,)
+#     df = df.compute(scheduler='processes')
+#     return df 
+    return filename
+
+def read_data_df(file, **kwargs):
+    
+   # filename = pd.read_csv(file, **kwargs)
+    df = ddf.read_csv(file,**kwargs, blocksize=1000000)
+    df = df.compute(scheduler='processes')
+    return df 
+    #return filename
 
 def get_shape(dataframe):
     return dataframe.shape
@@ -334,7 +353,7 @@ def top_10_countries_summer(noc_country,olympics):
     olympics['Medal'] = olympics['Medal'].fillna('No Medal')
     player = olympics.merge(noc_country, how='left', on='NOC')
     #print(athlete)
-    top10_summer = player[(olympics['Season']=='Summer') & (player['Medal']!='No Medal')].groupby('Country').count().reset_index()[['Country','Medal']].sort_values('Medal', ascending=False).head(10)
+    top10_summer = player[(player['Season']=='Summer') & (player['Medal']!='No Medal')].groupby('Country').count().reset_index()[['Country','Medal']].sort_values('Medal', ascending=False).head(10)
     f, ax = plt.subplots(figsize=(10, 4))
     sns.barplot(x="Country", y="Medal", data=top10_summer, label="Country", color="red")
 
@@ -351,11 +370,11 @@ def top_10_countries_summer(noc_country,olympics):
     return player
 
 
-# In[8]:
+# In[24]:
 
 
 def top_10_countries_winter(player):
-    top10_winter = player[(olympics['Season']=='Winter') & (player['Medal']!='No Medal')].groupby('Country').count().reset_index()[['Country','Medal']].sort_values('Medal', ascending=False).head(10)
+    top10_winter = player[(player['Season']=='Winter') & (player['Medal']!='No Medal')].groupby('Country').count().reset_index()[['Country','Medal']].sort_values('Medal', ascending=False).head(10)
     f, ax = plt.subplots(figsize=(10, 4))
     sns.barplot(x="Country", y="Medal", data=top10_winter, label="Country", color="purple")
 
