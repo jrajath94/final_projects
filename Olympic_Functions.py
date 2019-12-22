@@ -1,10 +1,15 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[25]:
+# In[1]:
 
 
-#import pandas as pd
+#!/usr/bin/env python
+# coding: utf-8
+
+# In[22]:
+
+
 import pandas as pd
 import numpy as np
 import seaborn as sns
@@ -15,51 +20,185 @@ from sklearn import metrics
 import pandas as pd
 import dask.dataframe as ddf
 import dask.multiprocessing
-#import modin.pandas as pd
-
-
-#df_list = [pd.DataFrame() for df in df_names]
-
-#Merge_olympics,merge_olympics_countrycode,olympics_merge_gdp,olympics_new = pd.DataFrame()
-
-# def read_data_modin(file, **kwargs):
-    
-#     filename = mpd.read_csv(file, **kwargs)
-#     return filename 
-
-
-
- 
-
+import warnings
+warnings.filterwarnings('ignore')
 
 
 def read_data(file, **kwargs):
-    
+    """
+    >>> read_data()
+    Traceback (most recent call last):
+    ...
+    TypeError: read_data() missing 1 required positional argument: 'file'
+    >>> read_data(abcd.csv)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'abcd' is not defined
+    >>> read_data('abcd.csv')
+    Traceback (most recent call last):
+    ...
+    FileNotFoundError: [Errno 2] File b'abcd.csv' does not exist: b'abcd.csv'
+
+    >>> read_data('olym.csv')
+    Traceback (most recent call last):
+    ...
+    UnicodeDecodeError: 'utf-8' codec can't decode byte 0xa0 in position 0: invalid start byte
+    >>> read_data('athlete_events.csv' , columns = 'asd')
+    Traceback (most recent call last):
+    ...
+    TypeError: parser_f() got an unexpected keyword argument 'columns'
+
+
+    :param file: CSV Files
+    :param kwargs:
+    :return: Pandas Dataframe
+    """
     filename = pd.read_csv(file, **kwargs)
-#     df = ddf.read_csv(file,**kwargs, blocksize=1000000,)
-#     df = df.compute(scheduler='processes')
-#     return df 
     return filename
 
 def read_data_df(file, **kwargs):
-    
+    """
+    >>> read_data_df()
+    Traceback (most recent call last):
+    ...
+    TypeError: read_data_df() missing 1 required positional argument: 'file'
+    >>> read_data_df('unknown.csv')
+    Traceback (most recent call last):
+    ...
+    FileNotFoundError: [Errno 2] No such file or directory: '/Users/rj/PycharmProjects/final_projects/unknown.csv'
+
+    >>> read_data_df(unknown.csv)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'unknown' is not defined
+
+    >>> read_data_df('olym.csv')
+    Traceback (most recent call last):
+    ...
+    UnicodeDecodeError: 'utf-8' codec can't decode byte 0xa0 in position 0: invalid start byte
+    >>> read_data_df('athlete_events.csv' , columns = 'asd')
+    Traceback (most recent call last):
+    ...
+    TypeError: parser_f() got an unexpected keyword argument 'columns'
+
+
+
+    :param file: Input CSV File
+    :param kwargs: addtional arguments
+    :return: Pandas Dataframe
+    """
    # filename = pd.read_csv(file, **kwargs)
     df = ddf.read_csv(file,**kwargs, blocksize=1000000)
     df = df.compute(scheduler='processes')
     return df 
-    #return filename
+
 
 def get_shape(dataframe):
+    """
+    >>> get_shape()
+    Traceback (most recent call last):
+    ...
+    TypeError: get_shape() missing 1 required positional argument: 'dataframe'
+
+
+    >>> get_shape('unknown.dataframe')
+    Traceback (most recent call last):
+    ...
+    AttributeError: 'str' object has no attribute 'shape'
+
+    >>> get_shape(Pandasdataframe)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'Pandasdataframe' is not defined
+
+    :param dataframe: Pandas Dataframe
+    :return: Shape of the Dataframe
+    """
     return dataframe.shape
 
 def get_stats(dataframe):
+    """
+    >>> get_stats()
+    Traceback (most recent call last):
+    ...
+    TypeError: get_stats() missing 1 required positional argument: 'dataframe'
+
+
+    >>> get_stats('unknown.dataframe')
+    Traceback (most recent call last):
+    ...
+    AttributeError: 'str' object has no attribute 'info'
+
+    >>> get_stats(PandasDF)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'PandasDF' is not defined
+
+    :param dataframe: Pandas Dataframe
+    :return: Shape of the Dataframe
+
+    :param dataframe: Pandas Dataframe
+    :return: Information about the dataframe
+    """
     return dataframe.info()
 
 def get_missing_values(dataframe):
+    """
+    >>> get_missing_values()
+    Traceback (most recent call last):
+    ...
+    TypeError: get_missing_values() missing 1 required positional argument: 'dataframe'
+
+
+    >>> get_missing_values('unknown.dataframe')
+    Traceback (most recent call last):
+    ...
+    AttributeError: 'str' object has no attribute 'isnull'
+
+    >>> get_missing_values(df, unknown_argument , another )
+    Traceback (most recent call last):
+    ...
+    NameError: name 'df' is not defined
+
+    >>> get_missing_values(PandasDF)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'PandasDF' is not defined
+
+    :param dataframe: Pandas Dataframe
+    :return: Details of the missing values in the dataframe
+    """
     return dataframe.isnull().sum()
 
 def get_info(dataframe):
-   # list(filter(None, test_list)) 
+   # list(filter(None, test_list))
+    """
+
+    >>> get_info()
+    Traceback (most recent call last):
+    ...
+    TypeError: get_info() missing 1 required positional argument: 'dataframe'
+
+
+    >>> get_info('unknown.dataframe')
+    Traceback (most recent call last):
+    ...
+    AttributeError: 'str' object has no attribute 'columns'
+
+    >>> get_info(df, unknown_argument , another )
+    Traceback (most recent call last):
+    ...
+    NameError: name 'df' is not defined
+
+    >>> get_info(PandasDF)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'PandasDF' is not defined
+
+
+   :param dataframe: Pandas Dataframe
+   :return: Details of the Dataframe
+   """
     columns =  list(filter(None,list(dataframe.columns.values)))
     #columns = [i for i in columns if i]
     names = str(columns)[1:-1]
@@ -75,6 +214,45 @@ def get_info(dataframe):
 
 
 def data_cleaning(olympics, noc_country,world_gdp , world_population, olympics_host):
+
+    """
+
+    >>> data_cleaning()
+    Traceback (most recent call last):
+    ...
+    TypeError: data_cleaning() missing 5 required positional arguments: 'olympics', 'noc_country', 'world_gdp', 'world_population', and 'olympics_host'
+
+
+    >>> data_cleaning('unknown.dataframe')
+    Traceback (most recent call last):
+    ...
+    TypeError: data_cleaning() missing 4 required positional arguments: 'noc_country', 'world_gdp', 'world_population', and 'olympics_host'
+    >>> data_cleaning(PandasDF)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'PandasDF' is not defined
+
+    >>> data_cleaning('unknown.dataframe', 'country', 'gdp', 'population','host')
+    Traceback (most recent call last):
+    ...
+    TypeError: string indices must be integers
+
+    >>> data_cleaning(df, unknown_argument , another )
+    Traceback (most recent call last):
+    ...
+    NameError: name 'df' is not defined
+
+
+
+
+
+    :param olympics: Olympics Dataset
+    :param noc_country:  NOC codes of the country
+    :param world_gdp: World GDP
+    :param world_population: World Population by country
+    :param olympics_host: Host city of the Olympics
+    :return: Intermediate dafaframes that could be used in other parts of the code.
+    """
 
     olympics['Medal'].fillna('DNW', inplace = True)
 
@@ -133,36 +311,51 @@ def data_cleaning(olympics, noc_country,world_gdp , world_population, olympics_h
     return Merge_olympics,merge_olympics_countrycode,olympics_merge_gdp,olympics_new,world_gdp,world_population,olympics_new 
 
 
-# In[3]:
+# In[ ]:
 
 
-from numba import jit
 
-@jit(nopython=True)
-def numbaeq(flatdata,x,nrow,ncol,data):
-  dtype=data.dtype
-  size=ncol*nrow
-  ix=np.empty(size,dtype=dtype)
-  jx=np.empty(size,dtype=dtype)
-  count=0
-  k=0
-  while k<size:
-    if flatdata[k]==x :
-      ix[count]=k//ncol
-      jx[count]=k%ncol
-      count+=1
-    k+=1          
-  return ix[:count],jx[:count]
-
-def whereequal(data,x): 
-    return numbaeq(data.ravel(),x,*data.shape,data)
-
-
-# In[4]:
+# In[20]:
 
 
 def correlation( Merge_olympics,merge_olympics_countrycode,olympics_merge_gdp,olympics_new):
+    """
+    >>> correlation()
+    Traceback (most recent call last):
+    ...
+    TypeError: correlation() missing 4 required positional arguments: 'Merge_olympics', 'merge_olympics_countrycode', 'olympics_merge_gdp', and 'olympics_new'
 
+    >>> correlation('unknown.dataframe')
+    Traceback (most recent call last):
+    ...
+    TypeError: correlation() missing 3 required positional arguments: 'merge_olympics_countrycode', 'olympics_merge_gdp', and 'olympics_new'
+    >>> correlation(PandasDF)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'PandasDF' is not defined
+
+    >>> correlation('unknown.dataframe', 'country', 'gdp', 'population','host')
+    Traceback (most recent call last):
+    ...
+    TypeError: correlation() takes 4 positional arguments but 5 were given
+    >>> correlation('olympics','countrycode','gdp','olympics_new','misc')
+    Traceback (most recent call last):
+    ...
+    TypeError: correlation() takes 4 positional arguments but 5 were given
+
+
+    >>> correlation(df, unknown_argument , another )
+    Traceback (most recent call last):
+    ...
+    NameError: name 'df' is not defined
+
+
+    :param Merge_olympics:
+    :param merge_olympics_countrycode:
+    :param olympics_merge_gdp:
+    :param olympics_new:
+    :return:
+    """
 
     get_ipython().run_line_magic('pylab', 'inline')
     olympics_merge = olympics_new.loc[(olympics_new['Year'] > 1960) & (olympics_new['Season'] == "Summer"), :]
@@ -170,7 +363,7 @@ def correlation( Merge_olympics,merge_olympics_countrycode,olympics_merge_gdp,ol
     # Reset row indices
     olympics_merge = olympics_merge.reset_index()
     olympics_host = pd.read_csv('olym.csv',encoding="ISO-8859–1")
-    mergedframe = pd.merge(olympics, olympics_host, left_on='City', right_on='Host City', how ='inner')
+    mergedframe = pd.merge(olympics_merge, olympics_host, left_on='City', right_on='Host City', how ='inner')
 
     #import numpy as np
     mergedframe['Medal'].fillna('DNW', inplace = True)
@@ -219,25 +412,60 @@ def correlation( Merge_olympics,merge_olympics_countrycode,olympics_merge_gdp,ol
     
     correlation = medalTotal_gdp.loc[row5, ['GDP', 'Medal_Won_Corrected']].corr()['Medal_Won_Corrected'][0]
 
-    plot(medalTotal_gdp.loc[row5, 'GDP'], 
+    plt.plot(medalTotal_gdp.loc[row5, 'GDP'],
          medalTotal_gdp.loc[row5, 'Medal_Won_Corrected'] , 
          linestyle = 'none', 
          marker = 'x',
         alpha = 0.4 , color='red')
-    xlabel('GDP of Country')
+    plt.xlabel('GDP of Country')
 
-    ylabel('Count of Medals')
-    text(np.nanpercentile(medalTotal_gdp['GDP'], 99.6), 
+    plt.ylabel('Count of Medals')
+    plt.text(np.nanpercentile(medalTotal_gdp['GDP'], 99.6),
          max(medalTotal_gdp['Medal_Won_Corrected']) - 50,
          "Correlation = " + str(correlation))
     
     return mergedframe,medalTotal_gdp
 
 
-# In[5]:
+# In[4]:
 
 
 def team_performance(mergedframe, countries):
+    """
+    >>> team_performance()
+    Traceback (most recent call last):
+    ...
+    TypeError: team_performance() missing 2 required positional arguments: 'mergedframe' and 'countries'
+
+    >>> team_performance('unknown.dataframe')
+    Traceback (most recent call last):
+    ...
+    TypeError: team_performance() missing 1 required positional argument: 'countries'
+    >>> team_performance(PandasDF)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'PandasDF' is not defined
+
+    >>> team_performance('unknown.dataframe', 'country', 'gdp', 'population','host')
+    Traceback (most recent call last):
+    ...
+    TypeError: team_performance() takes 2 positional arguments but 5 were given
+
+    >>> team_performance('olympics','countrycode')
+    Traceback (most recent call last):
+    ...
+    AttributeError: 'str' object has no attribute 'groupby'
+
+
+    >>> team_performance(df, unknown_argument , another )
+    Traceback (most recent call last):
+    ...
+    NameError: name 'df' is not defined
+
+    :param mergedframe:
+    :param countries:
+    :return:
+    """
     medal_tally_agnostic = mergedframe.groupby(['Year_x', 'Team', 'Event', 'Medal'])[['Medal_Won', 'Event_Category']].agg('sum').reset_index()
     medal_tally_agnostic['Medal_Won_Corrected'] = medal_tally_agnostic['Medal_Won']/medal_tally_agnostic['Event_Category']
     
@@ -261,10 +489,42 @@ def team_performance(mergedframe, countries):
     
 
 
-# In[6]:
+# In[5]:
 
 
-def home_advantage(medal_tally_agnostic):
+def home_advantage(medal_tally_agnostic,mergedframe):
+
+    """
+    >>> home_advantage()
+    Traceback (most recent call last):
+    ...
+    TypeError: home_advantage() missing 2 required positional arguments: 'medal_tally_agnostic' and 'mergedframe'
+
+    >>> home_advantage('unknown.dataframe')
+    Traceback (most recent call last):
+    ...
+    TypeError: home_advantage() missing 1 required positional argument: 'mergedframe'
+
+    >>> home_advantage(PandasDF)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'PandasDF' is not defined
+
+    >>> home_advantage('unknown.dataframe', 'country','host')
+    Traceback (most recent call last):
+    ...
+    TypeError: home_advantage() takes 2 positional arguments but 3 were given
+
+    >>> home_advantage(df, unknown_argument , another )
+    Traceback (most recent call last):
+    ...
+    NameError: name 'df' is not defined
+
+
+
+    :param medal_tally_agnostic: Medal Tally of a country
+    :return: Team medals by year and also gives the Home advantage table
+    """
 
     medal_tally_agnostic['Medal_Won_Corrected'] = medal_tally_agnostic['Medal_Won']/medal_tally_agnostic['Event_Category']
     # print(medal_tally_agnostic)
@@ -284,7 +544,7 @@ def home_advantage(medal_tally_agnostic):
     year_host_team = y[['Year', 'Country', 'Team','Season']].drop_duplicates()
     #print(year_host_team)
 
-    # check rows where host country is the same as team
+
     #print(year_host_team)
     row_mask_4 = (year_host_team['Country'].str.strip() == year_host_team['Team'].str.strip())
 
@@ -345,10 +605,50 @@ def home_advantage(medal_tally_agnostic):
     return year_host_team_medal
 
 
-# In[7]:
+# In[6]:
 
 
 def top_10_countries_summer(noc_country,olympics):
+
+    """
+
+    >>> top_10_countries_summer()
+    Traceback (most recent call last):
+    ...
+    TypeError: top_10_countries_summer() missing 2 required positional arguments: 'noc_country' and 'olympics'
+
+    >>> top_10_countries_summer('unknown.dataframe')
+    Traceback (most recent call last):
+    ...
+    TypeError: top_10_countries_summer() missing 1 required positional argument: 'olympics'
+
+    >>> top_10_countries_summer(PandasDF)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'PandasDF' is not defined
+
+    >>> top_10_countries_summer('unknown.dataframe', 'country','host')
+    Traceback (most recent call last):
+    ...
+    TypeError: top_10_countries_summer() takes 2 positional arguments but 3 were given
+
+    >>> top_10_countries_summer('country','host')
+    Traceback (most recent call last):
+    ...
+    TypeError: string indices must be integers
+
+
+    >>> top_10_countries_summer(df, unknown_argument , another )
+    Traceback (most recent call last):
+    ...
+    NameError: name 'df' is not defined
+
+
+    :param noc_country: Country Codes
+    :param olympics:  Olympic athletes dataset
+    :return:
+    """
+
     noc_country['Country'].fillna(noc_country['notes'], inplace=True)
     olympics['Medal'] = olympics['Medal'].fillna('No Medal')
     player = olympics.merge(noc_country, how='left', on='NOC')
@@ -370,10 +670,47 @@ def top_10_countries_summer(noc_country,olympics):
     return player
 
 
-# In[24]:
+# In[7]:
 
 
 def top_10_countries_winter(player):
+    """
+    >>> top_10_countries_winter()
+    Traceback (most recent call last):
+    ...
+    TypeError: top_10_countries_winter() missing 1 required positional argument: 'player'
+
+    >>> top_10_countries_winter('unknown.dataframe')
+    Traceback (most recent call last):
+    ...
+    TypeError: string indices must be integers
+
+
+    >>> top_10_countries_winter(PandasDF)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'PandasDF' is not defined
+
+
+    >>> top_10_countries_winter('unknown.dataframe', 'country','host')
+    Traceback (most recent call last):
+    ...
+    TypeError: top_10_countries_winter() takes 1 positional argument but 3 were given
+
+    >>> top_10_countries_winter('country')
+    Traceback (most recent call last):
+    ...
+    TypeError: string indices must be integers
+
+    >>> top_10_countries_winter(df, unknown_argument , another )
+    Traceback (most recent call last):
+    ...
+    NameError: name 'df' is not defined
+
+
+    :param player:
+    :return:
+    """
     top10_winter = player[(player['Season']=='Winter') & (player['Medal']!='No Medal')].groupby('Country').count().reset_index()[['Country','Medal']].sort_values('Medal', ascending=False).head(10)
     f, ax = plt.subplots(figsize=(10, 4))
     sns.barplot(x="Country", y="Medal", data=top10_winter, label="Country", color="purple")
@@ -384,76 +721,119 @@ def top_10_countries_winter(player):
                 '{:1.0f}'.format(p.get_height()),
                 ha="center")
 
-    #ax.set_xlabel('Country', size=14, color="green")
-    #ax.set_ylabel('Total Medals Won', size=14, color="green")
     ax.set_title('Top 10 countries with total medals in Winter Olympic games', size=16)
+    plt.show()
+
+
+# In[8]:
+
+
+def athletes_edition(olympics,edition):
+    """
+
+    >>> athletes_edition()
+    Traceback (most recent call last):
+    ...
+    TypeError: athletes_edition() missing 2 required positional arguments: 'olympics' and 'edition'
+
+
+    >>> athletes_edition('unknown.dataframe')
+    Traceback (most recent call last):
+    ...
+    TypeError: athletes_edition() missing 1 required positional argument: 'edition'
+
+    >>> athletes_edition(PandasDF)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'PandasDF' is not defined
+
+    >>> athletes_edition('unknown.dataframe', 'country','host')
+    Traceback (most recent call last):
+    ...
+    TypeError: athletes_edition() takes 2 positional arguments but 3 were given
+
+    >>> athletes_edition(df, unknown_argument , another )
+    Traceback (most recent call last):
+    ...
+    NameError: name 'df' is not defined
+
+
+
+    :param olympics:
+    :return:
+    """
+    Data = olympics[olympics['Season']==edition]
+
+    Athletes = Data.pivot_table(Data, index=['Year'], aggfunc=lambda x: len(x.unique())).reset_index()[['Year','ID']]
+    Sports = Data.groupby('Year')['Sport'].nunique().reset_index()
+    Events = Data.groupby('Year')['Event'].nunique().reset_index()
+
+    fig, ax = plt.subplots(3, 1, sharex=True, figsize=(22,18))
+
+    sns.barplot(x='Year', y='ID', data=Athletes, ax=ax[0], color="red")
+    sns.barplot(x='Year', y='Sport', data=Sports, ax=ax[1], color="blue")
+    sns.barplot(x='Year', y='Event', data=Events, ax=ax[2], color="orange")
+
+    j = 0
+    for i in ['Athletes', 'Sports', 'Events']:
+        ax[j].set_xlabel('Year', size=14)
+        ax[j].set_ylabel(i, size=14)
+        ax[j].set_title(i + ' in '+edition+'  Olympics ', size=18)
+        j = j + 1
+
+    for i in range(3):
+        for p in ax[i].patches:
+            ax[i].text(p.get_x() + p.get_width()/2., p.get_height(), '%d' % int(p.get_height()),
+                    fontsize=12, color='black', ha='center', va='bottom')
     plt.show()
 
 
 # In[9]:
 
 
-def athletes_summer(olympics):
-    summerData = olympics[olympics['Season']=='Summer']
 
-    summerAthletes = summerData.pivot_table(summerData, index=['Year'], aggfunc=lambda x: len(x.unique())).reset_index()[['Year','ID']]
-    summerSports = summerData.groupby('Year')['Sport'].nunique().reset_index()
-    summerEvents = summerData.groupby('Year')['Event'].nunique().reset_index()
-
-    fig, ax = plt.subplots(3, 1, sharex=True, figsize=(22,18))
-
-    sns.barplot(x='Year', y='ID', data=summerAthletes, ax=ax[0], color="red")
-    sns.barplot(x='Year', y='Sport', data=summerSports, ax=ax[1], color="blue")
-    sns.barplot(x='Year', y='Event', data=summerEvents, ax=ax[2], color="orange")
-
-    j = 0
-    for i in ['Athletes', 'Sports', 'Events']:
-        ax[j].set_xlabel('Year', size=14)
-        ax[j].set_ylabel(i, size=14 )
-        ax[j].set_title(i + ' in Summer Olympic ', size=18)
-        j = j + 1
-
-    for i in range(3):
-        for p in ax[i].patches:
-            ax[i].text(p.get_x() + p.get_width()/2., p.get_height(), '%d' % int(p.get_height()),
-                    fontsize=12, color='black', ha='center', va='bottom')
-    plt.show()
 
 
 # In[10]:
 
 
-def athletes_winter(olympics):
-    winterData = olympics[olympics['Season']=='Winter']
-
-    winterAthletes = winterData.pivot_table(winterData, index=['Year'], aggfunc=lambda x: len(x.unique())).reset_index()[['Year','ID']]
-    winterSports = winterData.groupby('Year')['Sport'].nunique().reset_index()
-    winterEvents = winterData.groupby('Year')['Event'].nunique().reset_index()
-
-    fig, ax = plt.subplots(3, 1, sharex=True, figsize=(22,18))
-
-    sns.barplot(x='Year', y='ID', data=winterAthletes, ax=ax[0], color="red")
-    sns.barplot(x='Year', y='Sport', data=winterSports, ax=ax[1], color="blue")
-    sns.barplot(x='Year', y='Event', data=winterEvents, ax=ax[2], color="orange")
-
-    j = 0
-    for i in ['Athletes', 'Sports', 'Events']:
-        ax[j].set_xlabel('Year', size=14)
-        ax[j].set_ylabel(i, size=14)
-        ax[j].set_title(i + ' in Winter Olympic ', size=18)
-        j = j + 1
-
-    for i in range(3):
-        for p in ax[i].patches:
-            ax[i].text(p.get_x() + p.get_width()/2., p.get_height(), '%d' % int(p.get_height()),
-                    fontsize=12, color='black', ha='center', va='bottom')
-    plt.show()
-
-
-# In[11]:
-
-
 def BMI_by_event_participants(olympics ,gender):
+    """
+    >>> BMI_by_event_participants()
+    Traceback (most recent call last):
+    ...
+    TypeError: BMI_by_event_participants() missing 2 required positional arguments: 'olympics' and 'gender'
+
+    >>> BMI_by_event_participants('unknown.dataframe')
+    Traceback (most recent call last):
+    ...
+    TypeError: BMI_by_event_participants() missing 1 required positional argument: 'gender'
+
+    >>> BMI_by_event_participants(PandasDF)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'PandasDF' is not defined
+
+    >>> BMI_by_event_participants('unknown.dataframe', 'country','host')
+    Traceback (most recent call last):
+    ...
+    TypeError: BMI_by_event_participants() takes 2 positional arguments but 3 were given
+
+    >>> BMI_by_event_participants('country','host')
+    Traceback (most recent call last):
+    ...
+    TypeError: string indices must be integers
+
+
+    >>> BMI_by_event_participants(df, unknown_argument , another )
+    Traceback (most recent call last):
+    ...
+    NameError: name 'df' is not defined
+
+    :param olympics:
+    :param gender:
+    :return:
+    """
     olympics['BMI'] = olympics['Weight']/(olympics['Height']/100)**2
     olympics['BMI']
     Athletics_male=olympics[(olympics["Sex"]==gender) & (olympics["Sport"]=='Athletics')]   
@@ -507,13 +887,46 @@ def BMI_by_event_participants(olympics ,gender):
 
 
 
-
-
-# In[12]:
+# In[11]:
 
 
 def BMI_by_event_gold_medalists(olympics,gender):
+    """
+    >>> BMI_by_event_gold_medalists()
+    Traceback (most recent call last):
+    ...
+    TypeError: BMI_by_event_gold_medalists() missing 2 required positional arguments: 'olympics' and 'gender'
 
+    >>> BMI_by_event_gold_medalists('unknown.dataframe')
+    Traceback (most recent call last):
+    ...
+    TypeError: BMI_by_event_gold_medalists() missing 1 required positional argument: 'gender'
+
+    >>> BMI_by_event_gold_medalists(PandasDF)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'PandasDF' is not defined
+
+    >>> BMI_by_event_gold_medalists('unknown.dataframe', 'country','host')
+    Traceback (most recent call last):
+    ...
+    TypeError: BMI_by_event_gold_medalists() takes 2 positional arguments but 3 were given
+
+    >>> BMI_by_event_gold_medalists('country','host')
+    Traceback (most recent call last):
+    ...
+    TypeError: string indices must be integers
+
+
+    >>> BMI_by_event_gold_medalists(df, unknown_argument , another )
+    Traceback (most recent call last):
+    ...
+    NameError: name 'df' is not defined
+
+    :param olympics:
+    :param gender:
+    :return:
+    """
     Athletics=olympics[(olympics["Medal"]=='Gold') & (olympics["Sex"]==gender) & (olympics["Sport"]=='Athletics')].loc[:,["BMI","Sport","Medal"]]    
     Swimmers=olympics[(olympics["Medal"]=='Gold') & (olympics["Sex"]==gender) & (olympics["Sport"]=='Swimming')].loc[:,["BMI","Sport","Medal"]]    
     Wrestlers=olympics[(olympics["Medal"]=='Gold') & (olympics["Sex"]==gender)  & (olympics["Sport"]=='Wrestling')].loc[:,["BMI","Sport","Medal"]]    
@@ -567,13 +980,49 @@ def BMI_by_event_gold_medalists(olympics,gender):
 
 
 
-
-
-# In[13]:
+# In[12]:
 
 
 # Evolution Based on BMI
 def BMI_by_time_gold_medalists(olympics):
+
+    """
+    >>> BMI_by_time_gold_medalists()
+    Traceback (most recent call last):
+    ...
+    TypeError: BMI_by_time_gold_medalists() missing 1 required positional argument: 'olympics'
+
+    >>> BMI_by_time_gold_medalists('unknown.dataframe')
+    Traceback (most recent call last):
+    ...
+    TypeError: string indices must be integers
+
+    >>> BMI_by_time_gold_medalists(PandasDF)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'PandasDF' is not defined
+
+    >>> BMI_by_time_gold_medalists('unknown.dataframe', 'country','host')
+    Traceback (most recent call last):
+    ...
+    TypeError: BMI_by_time_gold_medalists() takes 1 positional argument but 3 were given
+
+
+    >>> BMI_by_time_gold_medalists('country','host')
+    Traceback (most recent call last):
+    ...
+    TypeError: BMI_by_time_gold_medalists() takes 1 positional argument but 2 were given
+
+
+
+    >>> BMI_by_time_gold_medalists(df, unknown_argument , another )
+    Traceback (most recent call last):
+    ...
+    NameError: name 'df' is not defined
+
+    :param olympics:
+    :return:
+    """
     years = [1896,1900,1904,1908,1912,1916,1920,1924,1928]
 
     Athletics_1896=olympics[(olympics["Medal"]=='Gold') & (olympics["Year"].isin(years)) & (olympics["Sport"]=='Athletics')]
@@ -625,20 +1074,81 @@ def BMI_by_time_gold_medalists(olympics):
     plt.show()
 
 
-
-# In[14]:
+# In[13]:
 
 
 def participants(olympics):
+    """
+
+    >>> participants()
+    Traceback (most recent call last):
+    ...
+    TypeError: participants() missing 1 required positional argument: 'olympics'
+
+    >>> participants('unknown.dataframe')
+    Traceback (most recent call last):
+    ...
+    AttributeError: 'str' object has no attribute 'Season'
+
+    >>> participants(PandasDF)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'PandasDF' is not defined
+
+    >>> participants('unknown.dataframe', 'country','host')
+    Traceback (most recent call last):
+    ...
+    TypeError: participants() takes 1 positional argument but 3 were given
+
+    >>> participants(df, unknown_argument , another )
+    Traceback (most recent call last):
+    ...
+    NameError: name 'df' is not defined
+
+
+
+    :param olympics:
+    :return:
+    """
     summer_olympics = olympics[(olympics.Season == 'Summer')]
 #    summer_olympics.groupby(['Year'])['ID'].count().reset_index(drop=True)
     return summer_olympics
 
 
-# In[15]:
+# In[14]:
 
 
 def sprinter_Height(summer_olympics):
+    """
+    >>> sprinter_Height()
+    Traceback (most recent call last):
+    ...
+    TypeError: sprinter_Height() missing 1 required positional argument: 'summer_olympics'
+
+    >>> sprinter_Height('unknown.dataframe')
+    Traceback (most recent call last):
+    ...
+    TypeError: string indices must be integers
+
+    >>> sprinter_Height(PandasDF)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'PandasDF' is not defined
+
+    >>> sprinter_Height('unknown.dataframe', 'country','host')
+    Traceback (most recent call last):
+    ...
+    TypeError: sprinter_Height() takes 1 positional argument but 3 were given
+
+    >>> sprinter_Height(df, unknown_argument , another )
+    Traceback (most recent call last):
+    ...
+    NameError: name 'df' is not defined
+
+    :param summer_olympics:
+    :return:
+    """
+
     sprinters = summer_olympics[summer_olympics['Event']=="Athletics Men's 100 metres"]
     sprinters_height  = sprinters.groupby(['Year'])['Height'].mean()
 
@@ -665,10 +1175,41 @@ def sprinter_Height(summer_olympics):
 #sprint.style.applymap(lambda x: 'background-color : yellow' if x>sprint.iloc[3,3] else '')
 
 
-# In[16]:
+# In[15]:
 
 
 def sprinter_weight(summer_olympics):
+    """
+    >>> sprinter_weight()
+    Traceback (most recent call last):
+    ...
+    TypeError: sprinter_weight() missing 1 required positional argument: 'summer_olympics'
+
+    >>> sprinter_weight('unknown.dataframe')
+    Traceback (most recent call last):
+    ...
+    TypeError: string indices must be integers
+
+    >>> sprinter_weight(PandasDF)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'PandasDF' is not defined
+
+    >>> sprinter_weight('unknown.dataframe', 'country','host')
+    Traceback (most recent call last):
+    ...
+    TypeError: sprinter_weight() takes 1 positional argument but 3 were given
+
+    >>> sprinter_weight(df, unknown_argument , another )
+    Traceback (most recent call last):
+    ...
+    NameError: name 'df' is not defined
+
+
+
+    :param summer_olympics:
+    :return:
+    """
     sprinters = summer_olympics[summer_olympics['Event']=="Athletics Men's 100 metres"]
     sprinters_Weight  = sprinters.groupby(['Year'])['Weight'].mean()
 
@@ -693,10 +1234,42 @@ def sprinter_weight(summer_olympics):
     return sprint
 
 
-# In[17]:
+# In[16]:
 
 
 def sprinter_age(summer_olympics):
+    """
+    >>> sprinter_age()
+    Traceback (most recent call last):
+    ...
+    TypeError: sprinter_age() missing 1 required positional argument: 'summer_olympics'
+
+    >>> sprinter_age('unknown.dataframe')
+    Traceback (most recent call last):
+    ...
+    TypeError: string indices must be integers
+
+    >>> sprinter_age(PandasDF)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'PandasDF' is not defined
+
+    >>> sprinter_age('unknown.dataframe', 'country','host')
+    Traceback (most recent call last):
+    ...
+    TypeError: sprinter_age() takes 1 positional argument but 3 were given
+
+    >>> sprinter_age(df, unknown_argument , another )
+    Traceback (most recent call last):
+    ...
+    NameError: name 'df' is not defined
+
+
+
+    :param summer_olympics:
+    :return:
+    """
+
     sprinters = summer_olympics[summer_olympics['Event']=="Athletics Men's 100 metres"]
     sprinters_Age  = sprinters.groupby(['Year'])['Age'].mean()
 
@@ -721,10 +1294,40 @@ def sprinter_age(summer_olympics):
     return sprint
 
 
-# In[ ]:
+# In[17]:
 
 
 def sprinter_bmi(summer_olympics):
+    """
+    >>> sprinter_bmi()
+    Traceback (most recent call last):
+    ...
+    TypeError: sprinter_bmi() missing 1 required positional argument: 'summer_olympics'
+
+    >>> sprinter_bmi('unknown.dataframe')
+    Traceback (most recent call last):
+    ...
+    TypeError: string indices must be integers
+
+    >>> sprinter_bmi(PandasDF)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'PandasDF' is not defined
+
+    >>> sprinter_bmi('unknown.dataframe', 'country','host')
+    Traceback (most recent call last):
+    ...
+    TypeError: sprinter_bmi() takes 1 positional argument but 3 were given
+
+    >>> sprinter_bmi(df, unknown_argument , another )
+    Traceback (most recent call last):
+    ...
+    NameError: name 'df' is not defined
+
+    :param summer_olympics:
+    :return:
+    """
+
     sprinters = summer_olympics[summer_olympics['Event']=="Athletics Men's 100 metres"]
     sprinters_BMI  = sprinters.groupby(['Year'])['BMI'].mean()
 
@@ -753,12 +1356,48 @@ def sprinter_bmi(summer_olympics):
 
 
 
-
-
 # In[18]:
 
 
 def medal_predictor(olympics,world_gdp,world_population,medalTotal_gdp):
+
+    """
+    >>> medal_predictor()
+    Traceback (most recent call last):
+    ...
+    TypeError: medal_predictor() missing 4 required positional arguments: 'olympics', 'world_gdp', 'world_population', and 'medalTotal_gdp'
+
+    >>> medal_predictor('unknown.dataframe')
+    Traceback (most recent call last):
+    ...
+    TypeError: medal_predictor() missing 3 required positional arguments: 'world_gdp', 'world_population', and 'medalTotal_gdp'
+
+    >>> medal_predictor(PandasDF)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'PandasDF' is not defined
+
+    >>> medal_predictor('unknown.dataframe', 'country', 'gdp', 'population')
+    Traceback (most recent call last):
+    ...
+    AttributeError: 'str' object has no attribute 'merge'
+
+    >>> medal_predictor(df, unknown_argument , another )
+    Traceback (most recent call last):
+    ...
+    NameError: name 'df' is not defined
+
+
+
+
+
+    :param olympics:
+    :param world_gdp:
+    :param world_population:
+    :param medalTotal_gdp:
+    :return:
+    """
+
     olympics = olympics.merge(world_gdp,
                                                     left_on = ['NOC', 'Year'],
                                                     right_on = ['Country Code', 'Year'],
@@ -819,39 +1458,8 @@ def medal_predictor(olympics,world_gdp,world_population,medalTotal_gdp):
                                                          right_on = ['Year', 'Team'],
                                                          how = 'left')
     medal_gdp_pop_contingent.head()
-    city_to_country = {'Tokyo': 'Japan',
-                      'Mexico City': 'Mexico',
-                      'Munich': 'Germany',
-                      'Montreal': 'Canada',
-                      'Moscow': 'Russia',
-                      'Los Angeles': 'USA',
-                      'Seoul': 'South Korea',
-                      'Barcelona': 'Spain',
-                      'Atlanta': 'USA',
-                      'Sydney': 'Australia',
-                      'Athens': 'Greece',
-                      'Beijing': 'China',
-                      'London': 'UK',
-                      'Rio de Janeiro': 'Brazil'}
 
-    # Map cities to countries
-    olympics['Country_Host'] = olympics['City'].map(city_to_country)
-
-    #print the 
-    olympics.loc[:, ['Year', 'Country_Host']].drop_duplicates().sort_values('Year')
-
-
-
-
-    year_host = olympics.loc[:, ['Year', 'Country_Host']].drop_duplicates()
-
-    # merge this with the larger dataset
-    lin_model_data = medal_gdp_pop_contingent.merge(year_host,
-                                  left_on = 'Year',
-                                  right_on = 'Year',
-                                  how = 'left')
-
-    lin_model_data = lin_model_data.loc[(lin_model_data['Year'] > 1960), :]
+    lin_model_data = medal_gdp_pop_contingent.loc[(medal_gdp_pop_contingent['Year'] > 1960), :]
 
     lin_model_data['GDP_per_capita'] = lin_model_data['GDP']/lin_model_data['Population']
     lin_model_data.dropna(how = 'any', inplace = True)
@@ -859,9 +1467,7 @@ def medal_predictor(olympics,world_gdp,world_population,medalTotal_gdp):
     lin_model_data.head()
     lin_model_data['Log_Population'] = np.log(lin_model_data['Population'])
     lin_model_data['Log_GDP'] = np.log(lin_model_data['GDP'])
-    y, X = dmatrices('Medal_Won_Corrected ~ Log_GDP + Log_Population + Total_Athletes + GDP_per_capita', 
-                    data = lin_model_data,
-                    return_type = 'dataframe')
+    y, X = dmatrices('Medal_Won_Corrected ~ Log_GDP + Log_Population + Total_Athletes + GDP_per_capita',data = lin_model_data,return_type = 'dataframe')
 
     model = sm.OLS(y, X)
     result = model.fit()
@@ -875,13 +1481,42 @@ def medal_predictor(olympics,world_gdp,world_population,medalTotal_gdp):
     return summary,rmse
 
 
-# In[19]:
+# In[ ]:
 
 
-def participants_summer(olympics):
+def participants_edition(olympics,edition):
+    """
+    >>> participants_edition()
+    Traceback (most recent call last):
+    ...
+    TypeError: participants_edition() missing 2 required positional arguments: 'olympics' and 'edition'
 
-    summer_olympics = olympics[(olympics.Season == 'Summer')]
-    sum = summer_olympics.groupby(['Year'])['ID'].count().reset_index()
+    >>> participants_edition('unknown.dataframe')
+    Traceback (most recent call last):
+    ...
+    TypeError: participants_edition() missing 1 required positional argument: 'edition'
+
+    >>> participants_edition(PandasDF)
+    Traceback (most recent call last):
+    ...
+    NameError: name 'PandasDF' is not defined
+
+    >>> participants_edition('unknown.dataframe', 'country','host')
+    Traceback (most recent call last):
+    ...
+    TypeError: participants_edition() takes 2 positional arguments but 3 were given
+
+    >>> participants_edition(df, unknown_argument , another )
+    Traceback (most recent call last):
+    ...
+    NameError: name 'df' is not defined
+
+
+    :param olympics:
+    :return:
+    """
+    edition_olympics = olympics[(olympics.Season == edition)]
+    sum = edition_olympics.groupby(['Year'])['ID'].count().reset_index()
 
 
 
@@ -892,26 +1527,11 @@ def participants_summer(olympics):
     plt.xticks(rotation = 60)
 
     plt.ylabel("Participants Count")
-    plt.title("Summer Olympics")
+    plt.title(edition+ " Olympics")
 
 
-# In[20]:
+# In[ ]:
 
-
-def participants_winter(olympics):
-    winter_olympics = olympics[(olympics.Season == 'Winter')]
-    win = winter_olympics.groupby(['Year'])['ID'].count().reset_index()
-
-
-
-
-    fig = plt.figure(figsize=(13,16))
-    plt.subplot(211)
-    ax = sns.pointplot(x = win["Year"] , y = win["ID"],markers="h")
-    plt.xticks(rotation = 60)
-
-    plt.ylabel("Participants Count")
-    plt.title("Summer Olympics")
 
 
 # In[ ]:
