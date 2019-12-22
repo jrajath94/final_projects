@@ -1,5 +1,9 @@
 **Topic: Analyzing Olympic Data Set from 1896 to 2016**
 
+Main Notebook - https://nbviewer.jupyter.org/github/jrajath94/final_projects/blob/master/Final%20Submission%20-%20Olympics.ipynb
+
+Functions - https://github.com/jrajath94/final_projects/blob/master/Olympic_Functions.py
+
 Hypothesis 1:  Does Home team hold advantage compared to foreign teams?
 
 Hypothesis 2: More the number of events, more the participation of athletes
