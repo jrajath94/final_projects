@@ -8,4 +8,4 @@ statsmodels
 dask[complete]
 scikit-learn
 numba
-pygeodesy
+PyGeodesy
