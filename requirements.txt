@@ -5,8 +5,8 @@ matplotlib
 seaborn
 pandas
 statsmodels
-dask
+dask[complete]
+dask >= 2.9.0
 scikit-learn
 dask[dataframe]
-dask[complete]
 dask[dataframe]==2.9.0
