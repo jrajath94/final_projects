@@ -1,0 +1,9 @@
+# List of the pip packages that must be installed for this project
+numpy
+scipy
+matplotlib
+seaborn
+pandas
+statsmodels
+dask
+sklearn
