@@ -6,7 +6,5 @@ seaborn
 pandas
 statsmodels
 dask[complete]
-dask >= 2.9.0
 scikit-learn
-dask[dataframe]
-dask[dataframe]==2.9.0
+numba
