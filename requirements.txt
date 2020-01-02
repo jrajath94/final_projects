@@ -7,3 +7,4 @@ pandas
 statsmodels
 dask
 scikit-learn
+"dask[dataframe]"
