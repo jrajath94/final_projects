@@ -14,4 +14,4 @@ script: pytest --doctest-modules
 
 
 
-CODECOV_TOKEN="c4689aff-f82e-45b6-934c-f9cec76098f1"
+#CODECOV_TOKEN="c4689aff-f82e-45b6-934c-f9cec76098f1"
