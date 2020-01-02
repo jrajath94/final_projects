@@ -1010,5 +1010,4 @@ sprinter_stats(olympics_NOC, 'Weight')
 # In[74]:
 
 
-print(sprinter_stats(olympics_NOC, 'Age'))
-
+sprinter_stats(olympics_NOC, 'Age'
