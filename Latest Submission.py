@@ -221,7 +221,7 @@ world_population = read_data_df('world_pop.csv')
 olympics = read_data_df('athlete_events.csv')
 # olympics_host = read_data_df('olym.csv',encoding="ISO-8859–1")
 olympics_host = read_data_df('olm2.csv')
-world_hdi = read_data_df('hdi.csv')
+world_hdi = read_data_df('HDI.csv')
 
 # In[3]:
 
