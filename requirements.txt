@@ -6,4 +6,4 @@ seaborn
 pandas
 statsmodels
 dask
-sklearn
+scikit-learn
