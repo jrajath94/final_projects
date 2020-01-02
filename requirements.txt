@@ -7,4 +7,6 @@ pandas
 statsmodels
 dask
 scikit-learn
+dask[dataframe]
+dask[complete]
 dask[dataframe]==2.9.0
