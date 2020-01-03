@@ -64,7 +64,7 @@ def read_data_df(file, **kwargs):
     >>> read_data_df('unknown.csv')
     Traceback (most recent call last):
     ...
-    FileNotFoundError: [Errno 2] No such file or directory: '/Users/rj/PycharmProjects/final_projects/unknown.csv'
+    FileNotFoundError: [Errno 2] No such file or directory: ...
 
     >>> read_data_df(unknown.csv)
     Traceback (most recent call last):
