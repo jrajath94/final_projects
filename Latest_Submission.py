@@ -1,19 +1,12 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-from pygeodesy.utily import m2km
-from pygeodesy.ellipsoidalVincenty import LatLon
-from numba import jit
+import warnings
+
 import dask.dataframe as ddf
 import matplotlib.pyplot as plt
-import numpy as np
 import pandas as pd
-import seaborn as sns
-import statsmodels.api as sm
-from sklearn import metrics
-from sklearn import preprocessing
-from sklearn.ensemble import RandomForestRegressor
-import warnings
+
 warnings.filterwarnings('ignore')
 
 
@@ -222,9 +215,6 @@ def get_info(dataframe):
     print("Column Names - {} \n".format(names))
 
 
-
-
-
 def sprinter_stats(olympics, paramater):
     """
     >>> sprinter_stats()
@@ -286,7 +276,8 @@ def sprinter_stats(olympics, paramater):
     # Athletics Men's 100 metres
     return sprint
 
-def FemaleTrend(olympics_NOC,Sex,Season):
+
+def FemaleTrend(olympics_NOC, Sex, Season):
     """
     In this function, the rise in the female trend is analyzed over the summer and the winter season
 
@@ -304,15 +295,16 @@ def FemaleTrend(olympics_NOC,Sex,Season):
     :param olympics_NOC:
     :return:
     """
-    Femalecount = olympics_NOC[(olympics_NOC['Sex'] == Sex) & (olympics_NOC['Season'] == Season) ].groupby(['Year'])['Name'].count().reset_index(name="Female Trend")
+    Femalecount = olympics_NOC[(olympics_NOC['Sex'] == Sex) & (olympics_NOC['Season'] == Season)].groupby(
+        ['Year'])['Name'].count().reset_index(name="Female Trend")
     print(Femalecount)
-    Femalecount.plot(kind='line',x='Year',y='Female Trend')
-    
+    Femalecount.plot(kind='line', x='Year', y='Female Trend')
 
-def events(olympics_NOC,Season):
+
+def events(olympics_NOC, Season):
     """
     In this function, the count of all different events is displayed in bar graph over the Summer and Winter Olympics
-    
+
     >>> events_summer('unknown.dataframe', 'country','host')
     Traceback (most recent call last):
     ...
@@ -327,22 +319,30 @@ def events(olympics_NOC,Season):
     :param olympics_NOC_gdp:
     :return:
     """
-#Plotting Event Count over the years in Summer Olympic
+    # Plotting Event Count over the years in Summer Olympic
 
-    Eventcount = olympics_NOC[olympics_NOC['Season'] == Season].groupby(['Year'])['Event'].nunique().reset_index(name="Eventcount")
+    Eventcount = olympics_NOC[olympics_NOC['Season'] == Season].groupby(
+        ['Year'])['Event'].nunique().reset_index(name="Eventcount")
     print(Eventcount)
-    fig,ax = plt.subplots(figsize=(28,6))
-    Eventcount.plot(kind='bar',x='Year',y='Eventcount',ax=ax,color='red')
+    fig, ax = plt.subplots(figsize=(28, 6))
+    Eventcount.plot(kind='bar', x='Year', y='Eventcount', ax=ax, color='red')
 
     for p in ax.patches:
-        ax.text(p.get_x() + p.get_width()/2., p.get_height(), '%d' % int(p.get_height()), 
-                fontsize=12, color='black', ha='center', va='bottom')
+        ax.text(
+            p.get_x() + p.get_width() / 2.,
+            p.get_height(),
+            '%d' % int(
+                p.get_height()),
+            fontsize=12,
+            color='black',
+            ha='center',
+            va='bottom')
 
 
-def athletes(olympics_NOC,Season):
+def athletes(olympics_NOC, Season):
     """
     In this function, the count of all athlete participation is displayed in bar graph over the Summer and Winter Olympics
-    
+
     >>> athletes()
     Traceback (most recent call last):
     ...
@@ -363,15 +363,26 @@ def athletes(olympics_NOC,Season):
     :return:
     """
 
-    #Plotting Athlete count over the years in Summer Olympic
+    # Plotting Athlete count over the years in Summer Olympic
 
-    Athletecount = olympics_NOC[olympics_NOC['Season'] == Season].groupby(['Year'])['Name'].nunique().reset_index(name="Athletecount")
+    Athletecount = olympics_NOC[olympics_NOC['Season'] == Season].groupby(
+        ['Year'])['Name'].nunique().reset_index(name="Athletecount")
     print(Athletecount)
-    fig,ax = plt.subplots(figsize=(22,6))
-    Athletecount.plot(kind='bar',x='Year',y='Athletecount',ax=ax,color='red')
+    fig, ax = plt.subplots(figsize=(22, 6))
+    Athletecount.plot(
+        kind='bar',
+        x='Year',
+        y='Athletecount',
+        ax=ax,
+        color='red')
 
     for p in ax.patches:
-        ax.text(p.get_x() + p.get_width()/2., p.get_height(), '%d' % int(p.get_height()), 
-                fontsize=12, color='black', ha='center', va='bottom')
-
-
+        ax.text(
+            p.get_x() + p.get_width() / 2.,
+            p.get_height(),
+            '%d' % int(
+                p.get_height()),
+            fontsize=12,
+            color='black',
+            ha='center',
+            va='bottom')
