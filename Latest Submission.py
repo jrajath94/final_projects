@@ -41,10 +41,6 @@ def read_data(file, **kwargs):
     ...
     FileNotFoundError: [Errno 2] File b'abcd.csv' does not exist: b'abcd.csv'
 
-    >>> read_data('olym.csv')
-    Traceback (most recent call last):
-    ...
-    UnicodeDecodeError: 'utf-8' codec can't decode byte 0xa0 in position 0: invalid start byte
     >>> read_data('athlete_events.csv' , columns = 'asd')
     Traceback (most recent call last):
     ...
@@ -75,10 +71,7 @@ def read_data_df(file, **kwargs):
     ...
     NameError: name 'unknown' is not defined
 
-    >>> read_data_df('olym.csv')
-    Traceback (most recent call last):
-    ...
-    UnicodeDecodeError: 'utf-8' codec can't decode byte 0xa0 in position 0: invalid start byte
+
     >>> read_data_df('athlete_events.csv' , columns = 'asd')
     Traceback (most recent call last):
     ...
@@ -188,7 +181,7 @@ def get_info(dataframe):
     >>> get_info('unknown.dataframe')
     Traceback (most recent call last):
     ...
-    AttributeError: 'str' object has no attribute 'shape'
+    AttributeError: 'str' object has no attribute 'columns'
 
     >>> get_info(df, unknown_argument , another )
     Traceback (most recent call last):
@@ -945,27 +938,27 @@ history_weight_std.plot()
 
 def sprinter_stats(olympics, paramater):
     """
-    >>> sprinter_Height()
+    >>> sprinter_stats()
     Traceback (most recent call last):
     ...
-    TypeError: sprinter_Height() missing 1 required positional argument: 'summer_olympics'
+    TypeError: sprinter_stats() missing 2 required positional arguments: 'olympics' and 'paramater'
 
-    >>> sprinter_Height('unknown.dataframe')
+    >>> sprinter_stats('unknown.dataframe')
     Traceback (most recent call last):
     ...
-    TypeError: string indices must be integers
+    TypeError: sprinter_stats() missing 1 required positional argument: 'paramater'
 
-    >>> sprinter_Height(PandasDF)
+    >>> sprinter_stats(PandasDF)
     Traceback (most recent call last):
     ...
     NameError: name 'PandasDF' is not defined
 
-    >>> sprinter_Height('unknown.dataframe', 'country','host')
+    >>> sprinter_stats('unknown.dataframe', 'country','host')
     Traceback (most recent call last):
     ...
-    TypeError: sprinter_Height() takes 1 positional argument but 3 were given
+    TypeError: sprinter_stats() takes 2 positional arguments but 3 were given
 
-    >>> sprinter_Height(df, unknown_argument , another )
+    >>> sprinter_stats(df, unknown_argument , another )
     Traceback (most recent call last):
     ...
     NameError: name 'df' is not defined
