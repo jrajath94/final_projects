@@ -52,17 +52,25 @@ def read_data_df(file, **kwargs):
     Traceback (most recent call last):
     ...
     TypeError: read_data_df() missing 1 required positional argument: 'file'
-    >>> read_data_df('unknown.csv')
-    Traceback (most recent call last):
-    ...
-    FileNotFoundError: [Errno 2] No such file or directory: ...
 
-    >>> read_data_df(unknown.csv)
-    Traceback (most recent call last):
-    ...
-    NameError: name 'unknown' is not defined
-
-
+    >>> read_data_df('Tests/olm2_test.csv')
+             Host City    Country Summer (Olympiad)  ...  Year   latitude   longitude
+    0      Albertville     France               NaN  ...  1992  45.675500    6.392700
+    1        Barcelona      Spain               XXV  ...  1992  41.388787    2.158985
+    2      Lillehammer     Norway               NaN  ...  1994  61.115300   10.466200
+    3          Atlanta        USA              XXVI  ...  1996  33.748995  -84.387985
+    4           Nagano      Japan               NaN  ...  1998  36.650000  138.183334
+    5           Sydney  Australia             XXVII  ...  2000 -33.867850  151.207321
+    6   Salt Lake City        USA               NaN  ...  2002  40.758701 -111.876183
+    7           Athens     Greece            XXVIII  ...  2004  37.983333   23.733334
+    8            Turin      Italy               NaN  ...  2006  45.070300    7.686900
+    9          Beijing      China              XXIX  ...  2008  39.907498  116.397224
+    10       Vancouver     Canada               NaN  ...  2010  49.249657 -123.119339
+    11          London         UK               XXX  ...  2012  51.508415   -0.125533
+    12           Sochi     Russia               NaN  ...  2014  43.600000   39.730278
+    13  Rio de Janeiro     Brazil              XXXI  ...  2016 -22.902778  -43.207501
+    <BLANKLINE>
+    [14 rows x 7 columns]
     >>> read_data_df('athlete_events.csv' , columns = 'asd')
     Traceback (most recent call last):
     ...
@@ -233,13 +241,6 @@ get_missing_values(olympics)
 
 olympics['Medal'].fillna('No_Medal', inplace=True)
 
-olympics.dtypes
-world_gdp.dtypes
-noc_country.dtypes
-world_population.dtypes
-olympics_host.dtypes
-world_hdi.dtypes
-
 # "One Hot Encoding of Medals Column"
 
 ##### https://www.datacamp.com/community/tutorials/categorical-data
@@ -280,7 +281,6 @@ olympics_NOC_population = olympics_NOC.merge(
         drop=True)
 
 
-olympics_NOC_population
 
 
 list(world_gdp.columns)
@@ -295,19 +295,12 @@ olympics_NOC_gdp = olympics_NOC.merge(
     right_on='Country Code',
     how='left').reset_index(
     drop=True)
-olympics_NOC_gdp
-
-
-olympics_NOC_population
 
 
 # American Athletes vs World , Medals Tally in Olympics
 
 american_olympians = olympics_NOC.loc[(olympics_NOC.NOC == 'USA') & (
     olympics_NOC.Medal == 'Gold') & (olympics_NOC.Season == 'Summer')]
-american_olympians
-
-american_olympians.shape
 
 pd.options.display.max_rows = 999
 # We can see that the Gold medals won by America is 1127 , but the number
@@ -320,12 +313,12 @@ pd.options.display.max_rows = 999
 
 gold_medals = olympics_NOC[olympics_NOC.Gold_Medal == 1]
 gold = gold_medals.groupby(['Event', 'Year'])['ID'].count()
-gold
+
 gold_medals['Event_Frequency'] = gold_medals.groupby(['Event', 'Year'])[
     'ID'].transform('count')
 gold = gold_medals[gold_medals.Event_Frequency > 1]
 team_events = gold["Event"].unique()
-team_events
+
 
 # Medals Tally
 
@@ -335,26 +328,6 @@ medal_tally = tally[['NOC', 'Year', 'Sport', 'Event',
                      'Medal', 'Bronze_Medal', 'Silver_Medal', 'Gold_Medal']]
 
 medal_tally_1 = medal_tally.drop_duplicates(['Medal', 'Event', 'Year'])
-medal_tally_1
-
-# Gold Medallists of USA -
-
-medal_tally_1[(medal_tally_1['Medal'] == 'Gold')
-              & (medal_tally_1['NOC'] == 'USA')]
-
-# Silver Medallists of USA -
-
-
-medal_tally_1[(medal_tally_1['Medal'] == 'Silver')
-              & (medal_tally_1['NOC'] == 'USA')]
-
-# Bronze Medal Tally of USA -
-
-medal_tally_1[(medal_tally_1['Medal'] == 'Bronze')
-              & (medal_tally_1['NOC'] == 'USA')]
-
-
-medal_tally_1.columns
 
 
 medal_tally_1['Tally_Overall'] = medal_tally_1['Bronze_Medal'].astype(
@@ -444,10 +417,6 @@ olympic_host_noc = olympic_host_noc.drop_duplicates(
     ['Country', 'Year'], keep='last')
 olympic_host_noc = olympic_host_noc[['Year', 'NOC']]
 olympic_host_noc.columns = ['Year_of_Hosting', 'Host_Country_code']
-olympic_host_noc
-
-# In[42]:
-
 
 medal_tally_by_year.reset_index(inplace=True)
 medal_tally_by_year = medal_tally_by_year[['NOC', 'Year', 'Tally_Overall']]
@@ -487,24 +456,6 @@ host = host[['Year_of_Hosting',
              'Previous_Year_Tally',
              'Tally_Overall',
              'Next_Year_Tally']]
-host
-
-
-olympics_NOC.columns
-
-
-total_medals['Tally_Overall']
-
-total_medals['Tally_Overall'].shape[0]
-
-
-# total_medals['Previous_Year_Tally'] = total_medals['Tally_Overall'].shift(1)
-
-total_medals
-
-olympic_host_noc.columns
-
-host_country_tally.columns
 
 # Prediction
 
@@ -545,8 +496,6 @@ pivot_gdp = pd.melt(
     value_name='GDP')  # inspired
 pivot_gdp.dropna(inplace=True)
 
-pivot_gdp
-
 pop = world_population.drop(world_population.columns[[2, 3]], axis=1)
 pivot_pop = pd.melt(
     pop,
@@ -555,8 +504,6 @@ pivot_pop = pd.melt(
         'Country Code'],
     var_name='Year',
     value_name='Population')  # inspired
-pivot_pop
-
 
 gdp_pop = pivot_gdp.merge(
     pivot_pop, left_on=[
@@ -567,7 +514,7 @@ gdp_pop.dropna(inplace=True)
 
 gdp_pop = gdp_pop[['Country Name',
                    'Country Code', 'Year', 'GDP', 'Population']]
-gdp_pop
+
 predictor['Year'] = predictor['Year'].astype('str')
 pred = gdp_pop.merge(
     predictor, left_on=[
@@ -577,7 +524,6 @@ predictor['Year'] = predictor['Year'].astype('str')
 pred.dropna()
 pred['Per_Capita_GDP'] = pred['GDP'] / pred['Population']
 pred.dropna(inplace=True)
-pred
 
 correlation_matrix = pred.corr()
 correlation_matrix.style.background_gradient(cmap='coolwarm')
@@ -625,10 +571,8 @@ pivot_hdi_noc.columns = [
     'Year_HDI',
     'Human_Dev_Index',
     'Country_HDI']
-pivot_hdi_noc
 
 
-noc_country.columns
 
 pre = pred.merge(
     pivot_hdi_noc, left_on=[
@@ -657,10 +601,6 @@ plt.scatter(B, B_predict)
 plt.title("Scatter Plot for Random Forrest Regressor")
 
 
-pre.shape
-
-
-pred.dtypes
 
 
 correlation_matrix = pre.corr()
@@ -686,9 +626,6 @@ def getroutedistance(host_latitude, host_longitude):
 
 olympics_host['distance(KM)'] = getroutedistance(
     olympics_host['latitude'], olympics_host['longitude'])
-
-olympics_host
-
 
 historical = olympics_NOC.dropna(subset=['Height', 'Weight']).reset_index()
 history_height_mean = historical.groupby(['Year'])['Height'].mean()
@@ -748,7 +685,7 @@ def sprinter_stats(olympics, paramater):
 
     sprinters_gold = olympics[(olympics['Medal'] == 'Gold') & (
         olympics['Event'] == "Athletics Men's 100 metres")]
-    sprinters_gold
+
     sprinters_gold_height = sprinters_gold.groupby(['Year'])[paramater].mean()
 
     med = ['Gold', 'Silver', 'Bronze']
@@ -778,3 +715,7 @@ sprinter_stats(olympics_NOC, 'Height')
 sprinter_stats(olympics_NOC, 'Weight')
 
 sprinter_stats(olympics_NOC, 'Age')
+
+if __name__ == '__main__':
+    import doctest
+    print(doctest.testmod(Latest_Submission))
