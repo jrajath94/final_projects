@@ -12,6 +12,8 @@ warnings.filterwarnings('ignore')
 
 def read_data(file, **kwargs):
     """
+    This function is used to read csv files
+
     >>> read_data()
     Traceback (most recent call last):
     ...
@@ -55,6 +57,8 @@ def read_data(file, **kwargs):
 
 def read_data_df(file, **kwargs):
     """
+    This function is used to read csv files using Dask
+
     >>> read_data_df()
     Traceback (most recent call last):
     ...
@@ -97,6 +101,8 @@ def read_data_df(file, **kwargs):
 
 def get_shape(dataframe):
     """
+    Get the shape of the Dataframes
+
     >>> get_shape()
     Traceback (most recent call last):
     ...
@@ -107,11 +113,12 @@ def get_shape(dataframe):
     Traceback (most recent call last):
     ...
     AttributeError: 'str' object has no attribute 'shape'
-
-    >>> get_shape(Pandasdataframe)
-    Traceback (most recent call last):
-    ...
-    NameError: name 'Pandasdataframe' is not defined
+    >>> world_hdi_test = read_data_df('Data/hdi.csv')
+    >>> olympics_host_test = read_data_df('Data/olm2.csv')
+    >>> get_shape(world_hdi_test)
+    (270, 10)
+    >>> get_shape(olympics_host_test)
+    (51, 7)
 
     :param dataframe: Pandas Dataframe
     :return: Shape of the Dataframe
@@ -121,6 +128,8 @@ def get_shape(dataframe):
 
 def get_stats(dataframe):
     """
+    This function is used to get the stats from a dataframe
+
     >>> get_stats()
     Traceback (most recent call last):
     ...
@@ -142,12 +151,27 @@ def get_stats(dataframe):
 
     :param dataframe: Pandas Dataframe
     :return: Information about the dataframe
+    >>> noc_country_test = read_data_df('Data/noc_regions.csv')
+    >>> world_population_test = read_data_df('Data/world_pop.csv')
+
+    >>> get_stats(noc_country_test)
+    <class 'pandas.core.frame.DataFrame'>
+    RangeIndex: 230 entries, 0 to 229
+    Data columns (total 3 columns):
+    NOC       230 non-null object
+    region    227 non-null object
+    notes     21 non-null object
+    dtypes: object(3)
+    memory usage: 5.5+ KB
+
     """
     return dataframe.info()
 
 
 def get_missing_values(dataframe):
     """
+    This function is used to get the missing values count from a dataframe
+
     >>> get_missing_values()
     Traceback (most recent call last):
     ...
@@ -171,12 +195,22 @@ def get_missing_values(dataframe):
 
     :param dataframe: Pandas Dataframe
     :return: Details of the missing values in the dataframe
+
+    >>> noc_country_test = read_data_df('Data/noc_regions.csv')
+    >>> get_missing_values(noc_country_test)
+    NOC         0
+    region      3
+    notes     209
+    dtype: int64
+
     """
     return dataframe.isnull().sum()
 
 
 def get_info(dataframe):
     """
+    This function is used to get the rows and columns from a dataframe
+
 
     >>> get_info()
     Traceback (most recent call last):
@@ -199,7 +233,6 @@ def get_info(dataframe):
     ...
     NameError: name 'PandasDF' is not defined
 
-
    :param dataframe: Pandas Dataframe
    :return: Details of the Dataframe
    """
@@ -217,6 +250,9 @@ def get_info(dataframe):
 
 def sprinter_stats(olympics, paramater):
     """
+
+    This function is used to get the stats of 100 M sprinters from the Olympics Dataframe
+
     >>> sprinter_stats()
     Traceback (most recent call last):
     ...
