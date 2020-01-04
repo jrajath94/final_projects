@@ -26,7 +26,7 @@ Here, we try to investigate whether Home advantage affects the medal tally of th
 
 Inference from the Project : As the population keeps on increasing, the interest of people increasing when it comes to their own liking for the sport. As a result, the events in the Olympics over the years are increasing, which is motivation more and more people to participate in the Olympics.
 
-**3 -**  ** Does the geographic location of a country gives them advantage in Olympics?**
+**3 - Does the geographic location of a country gives them advantage in Olympics?**
 
 Inference from the Project: We can see that apart from countries like USA, Germany and Russia, when an Olympic is hosted in winter season, countries like Canada, South Korea  has more number of medals won in comparison with Summer Olympics. We can come to conclusion, that the geographic conditions, do hold some advantage in determining the chances of a particular country winning medals.
 
